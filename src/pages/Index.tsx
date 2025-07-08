@@ -1,12 +1,664 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { 
+  Github, 
+  Linkedin, 
+  Mail, 
+  Phone, 
+  MapPin, 
+  Download, 
+  ChevronDown,
+  ExternalLink,
+  Calendar,
+  Award,
+  Code,
+  Database,
+  Globe,
+  Sun,
+  Moon,
+  Menu,
+  X
+} from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
+import { toast } from '@/hooks/use-toast';
 
 const Index = () => {
+  const [darkMode, setDarkMode] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [darkMode]);
+
+  const skills = [
+    'Java', 'Spring Boot', 'Selenium WebDriver', 'Cucumber BDD', 
+    'JavaScript', 'React', 'MySQL', 'REST APIs', 'Git', 'Maven',
+    'HTML5', 'CSS3', 'Bootstrap', 'Postman', 'TestNG'
+  ];
+
+  const projects = [
+    {
+      title: "E-Commerce Test Automation Suite",
+      description: "Comprehensive automation suite for e-commerce testing with Cucumber-TestNG framework",
+      tech: ["Selenium", "Java", "Cucumber", "TestNG"],
+      type: "Automation Testing"
+    },
+    {
+      title: "API Testing Framework",
+      description: "Robust API testing framework for user management with RestAssured",
+      tech: ["Java", "RestAssured", "JSON", "API Testing"],
+      type: "API Testing"
+    },
+    {
+      title: "Wholesale Database Management",
+      description: "Full-stack web application for wholesale transaction management",
+      tech: ["Java", "J2EE", "MySQL", "Bootstrap"],
+      type: "Full Stack"
+    },
+    {
+      title: "Multiple Disease Detection",
+      description: "Health prediction web app with symptom-based disease detection",
+      tech: ["Java", "Machine Learning", "Web Development"],
+      type: "Web Application"
+    }
+  ];
+
+  const experience = [
+    {
+      company: "Angodigital Technologies Pvt. Ltd",
+      role: "Automation Test Engineer",
+      period: "Dec 2024 – Present",
+      description: "Designing test automation suites with Selenium WebDriver and Cucumber BDD"
+    },
+    {
+      company: "Global Quest Technologies",
+      role: "Java Full Stack Intern",
+      period: "Jun 2024 – Dec 2024",
+      description: "Built RESTful APIs with Spring Boot and integrated MySQL databases"
+    },
+    {
+      company: "Aqmenz Automation Pvt. Ltd",
+      role: "Full Stack Web Development Intern",
+      period: "Jul 2023 – Sep 2023",
+      description: "Developed responsive websites using HTML, CSS, JavaScript and Java backend"
+    }
+  ];
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    element?.scrollIntoView({ behavior: 'smooth' });
+    setActiveSection(sectionId);
+    setIsMenuOpen(false);
+  };
+
+  const handleDownloadResume = () => {
+    toast({
+      title: "Resume Download",
+      description: "Resume download will be available soon!",
+    });
+  };
+
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: "Message Sent!",
+      description: "Thank you for your message. I'll get back to you soon!",
+    });
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className={`min-h-screen transition-colors duration-500 ${darkMode ? 'dark bg-gray-900' : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'}`}>
+      {/* Navigation */}
+      <motion.nav 
+        className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700"
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+          <motion.h1 
+            className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+            whileHover={{ scale: 1.05 }}
+          >
+            SHIVASHARANAPPA
+          </motion.h1>
+          
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex space-x-8">
+            {['home', 'about', 'skills', 'projects', 'experience', 'contact'].map((section) => (
+              <button
+                key={section}
+                onClick={() => scrollToSection(section)}
+                className={`capitalize transition-colors duration-300 hover:text-blue-600 ${
+                  activeSection === section ? 'text-blue-600 font-semibold' : 'text-gray-700 dark:text-gray-300'
+                }`}
+              >
+                {section}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex items-center space-x-4">
+            {/* Theme Toggle */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setDarkMode(!darkMode)}
+              className="rounded-full"
+            >
+              {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </Button>
+
+            {/* Mobile Menu Toggle */}
+            <Button
+              variant="ghost"
+              size="sm"
+              className="md:hidden"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </Button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <motion.div 
+            className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+          >
+            <div className="px-4 py-4 space-y-2">
+              {['home', 'about', 'skills', 'projects', 'experience', 'contact'].map((section) => (
+                <button
+                  key={section}
+                  onClick={() => scrollToSection(section)}
+                  className="block w-full text-left px-3 py-2 capitalize text-gray-700 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors"
+                >
+                  {section}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </motion.nav>
+
+      {/* Hero Section */}
+      <section id="home" className="min-h-screen flex items-center justify-center pt-20">
+        <div className="container mx-auto px-4 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-4xl mx-auto"
+          >
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              className="mb-8"
+            >
+              <h1 className="text-5xl md:text-7xl font-bold mb-6">
+                <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 bg-clip-text text-transparent">
+                  SHIVASHARANAPPA
+                </span>
+              </h1>
+            </motion.div>
+            
+            <motion.p 
+              className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+            >
+              Automation Test Engineer | Aspiring Java Full Stack Developer
+            </motion.p>
+            
+            <motion.div 
+              className="flex flex-wrap justify-center items-center gap-4 mb-8 text-gray-500 dark:text-gray-400"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.7, duration: 0.8 }}
+            >
+              <div className="flex items-center gap-2">
+                <Mail className="h-4 w-4" />
+                <span>shivasharanbsajjan@gmail.com</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Phone className="h-4 w-4" />
+                <span>+91-8660835220</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <MapPin className="h-4 w-4" />
+                <span>Bengaluru, India</span>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              className="flex flex-wrap justify-center gap-4 mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9, duration: 0.8 }}
+            >
+              <Button onClick={handleDownloadResume} className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300">
+                <Download className="mr-2 h-4 w-4" />
+                Download Resume
+              </Button>
+              <Button variant="outline" onClick={() => scrollToSection('contact')} className="hover:scale-105 transition-all duration-300">
+                <Mail className="mr-2 h-4 w-4" />
+                Get In Touch
+              </Button>
+            </motion.div>
+
+            <motion.div 
+              className="flex justify-center space-x-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.1, duration: 0.8 }}
+            >
+              <motion.a 
+                href="#" 
+                className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
+                whileHover={{ scale: 1.2, rotate: 5 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Github className="h-6 w-6" />
+              </motion.a>
+              <motion.a 
+                href="#" 
+                className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
+                whileHover={{ scale: 1.2, rotate: -5 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Linkedin className="h-6 w-6" />
+              </motion.a>
+            </motion.div>
+          </motion.div>
+
+          <motion.div 
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <ChevronDown className="h-8 w-8 text-gray-400" />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="py-20 bg-white/50 dark:bg-gray-800/50">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Professional Summary
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-8"></div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto"
+          >
+            <Card className="backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 border-0 shadow-xl hover:shadow-2xl transition-all duration-500">
+              <CardContent className="p-8">
+                <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+                  Versatile and results-driven professional with proven experience as an <strong>Automation Test Engineer</strong> and foundational skills in <strong>full-stack Java development</strong>. Proficient in developing robust automation frameworks using <strong>Selenium and Cucumber</strong>, while also capable of building RESTful services and integrating full-stack web applications. Demonstrated ability to ensure software quality, identify critical bugs, and optimize performance in Agile-driven teams. Eager to contribute to dynamic development teams while continuously enhancing technical capabilities.
+                </p>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Skills Section */}
+      <section id="skills" className="py-20">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Technical Skills
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-8"></div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="max-w-6xl mx-auto"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <Card className="backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-blue-600">
+                    <Code className="h-6 w-6" />
+                    Programming
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-wrap gap-2">
+                    {['Java', 'JavaScript', 'SQL', 'HTML5', 'CSS3'].map((skill, index) => (
+                      <motion.div
+                        key={skill}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: index * 0.1, duration: 0.3 }}
+                        viewport={{ once: true }}
+                      >
+                        <Badge variant="secondary" className="hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors">
+                          {skill}
+                        </Badge>
+                      </motion.div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-purple-600">
+                    <Globe className="h-6 w-6" />
+                    Frameworks
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-wrap gap-2">
+                    {['Spring Boot', 'Selenium', 'Cucumber', 'React', 'Bootstrap'].map((skill, index) => (
+                      <motion.div
+                        key={skill}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: index * 0.1, duration: 0.3 }}
+                        viewport={{ once: true }}
+                      >
+                        <Badge variant="secondary" className="hover:bg-purple-100 dark:hover:bg-purple-900 transition-colors">
+                          {skill}
+                        </Badge>
+                      </motion.div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-teal-600">
+                    <Database className="h-6 w-6" />
+                    Tools & Databases
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-wrap gap-2">
+                    {['MySQL', 'Git', 'Maven', 'Postman', 'Eclipse'].map((skill, index) => (
+                      <motion.div
+                        key={skill}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: index * 0.1, duration: 0.3 }}
+                        viewport={{ once: true }}
+                      >
+                        <Badge variant="secondary" className="hover:bg-teal-100 dark:hover:bg-teal-900 transition-colors">
+                          {skill}
+                        </Badge>
+                      </motion.div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section id="projects" className="py-20 bg-white/50 dark:bg-gray-800/50">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Featured Projects
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-8"></div>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {projects.map((project, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                viewport={{ once: true }}
+              >
+                <Card className="h-full backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 group">
+                  <CardHeader>
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <CardTitle className="text-xl mb-2 group-hover:text-blue-600 transition-colors">
+                          {project.title}
+                        </CardTitle>
+                        <Badge variant="outline" className="text-xs">
+                          {project.type}
+                        </Badge>
+                      </div>
+                      <ExternalLink className="h-5 w-5 text-gray-400 group-hover:text-blue-600 transition-colors" />
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-base mb-4">
+                      {project.description}
+                    </CardDescription>
+                    <div className="flex flex-wrap gap-2">
+                      {project.tech.map((tech) => (
+                        <Badge key={tech} variant="secondary" className="text-xs">
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Experience Section */}
+      <section id="experience" className="py-20">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Professional Experience
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-8"></div>
+          </motion.div>
+
+          <div className="max-w-4xl mx-auto">
+            {experience.map((exp, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                className="mb-8"
+              >
+                <Card className="backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 border-0 shadow-xl hover:shadow-2xl transition-all duration-500">
+                  <CardHeader>
+                    <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
+                      <div>
+                        <CardTitle className="text-xl text-blue-600 mb-1">
+                          {exp.role}
+                        </CardTitle>
+                        <CardDescription className="text-lg font-semibold text-gray-700 dark:text-gray-300">
+                          {exp.company}
+                        </CardDescription>
+                      </div>
+                      <Badge variant="outline" className="flex items-center gap-1 w-fit">
+                        <Calendar className="h-3 w-3" />
+                        {exp.period}
+                      </Badge>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 dark:text-gray-400">
+                      {exp.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-20 bg-gradient-to-br from-blue-600 via-purple-600 to-teal-600">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl font-bold mb-4 text-white">
+              Let's Work Together
+            </h2>
+            <div className="w-24 h-1 bg-white mx-auto mb-8"></div>
+            <p className="text-xl text-white/90 max-w-2xl mx-auto">
+              Ready to bring your ideas to life? Let's discuss how we can collaborate on your next project.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="max-w-2xl mx-auto"
+          >
+            <Card className="backdrop-blur-sm bg-white/10 border-white/20 shadow-2xl">
+              <CardContent className="p-8">
+                <form onSubmit={handleContactSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-white mb-2 font-semibold">Name</label>
+                      <input 
+                        type="text" 
+                        className="w-full px-4 py-3 rounded-lg bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all"
+                        placeholder="Your Name"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-white mb-2 font-semibold">Email</label>
+                      <input 
+                        type="email" 
+                        className="w-full px-4 py-3 rounded-lg bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all"
+                        placeholder="your.email@example.com"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-white mb-2 font-semibold">Subject</label>
+                    <input 
+                      type="text" 
+                      className="w-full px-4 py-3 rounded-lg bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all"
+                      placeholder="Project Discussion"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-white mb-2 font-semibold">Message</label>
+                    <textarea 
+                      className="w-full px-4 py-3 rounded-lg bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all h-32 resize-none"
+                      placeholder="Tell me about your project..."
+                      required
+                    ></textarea>
+                  </div>
+                  <Button 
+                    type="submit"
+                    className="w-full bg-white text-blue-600 hover:bg-white/90 font-semibold py-3 transform hover:scale-105 transition-all duration-300"
+                  >
+                    Send Message
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-8 bg-gray-900 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <p className="mb-4">© 2024 Shivasharanappa. All rights reserved.</p>
+          <div className="flex justify-center space-x-6">
+            <motion.a 
+              href="#" 
+              className="text-gray-400 hover:text-white transition-colors"
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Github className="h-5 w-5" />
+            </motion.a>
+            <motion.a 
+              href="#" 
+              className="text-gray-400 hover:text-white transition-colors"
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Linkedin className="h-5 w-5" />
+            </motion.a>
+            <motion.a 
+              href="mailto:shivasharanbsajjan@gmail.com" 
+              className="text-gray-400 hover:text-white transition-colors"
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Mail className="h-5 w-5" />
+            </motion.a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
