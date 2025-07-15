@@ -18,7 +18,12 @@ import {
   Sun,
   Moon,
   Menu,
-  X
+  X,
+  GraduationCap,
+  Trophy,
+  Languages,
+  Music,
+  ChefHat
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -40,35 +45,41 @@ const Index = () => {
     }
   }, [darkMode]);
 
-  const skills = [
-    'Java', 'Spring Boot', 'Selenium WebDriver', 'Cucumber BDD', 
-    'JavaScript', 'React', 'MySQL', 'REST APIs', 'Git', 'Maven',
-    'HTML5', 'CSS3', 'Bootstrap', 'Postman', 'TestNG'
-  ];
+  const technicalSkills = {
+    languages: ['Java (Core & Advanced)', 'SQL', 'JavaScript'],
+    frontend: ['HTML5', 'CSS3', 'JavaScript', 'Bootstrap'],
+    backend: ['Spring Boot', 'J2EE', 'Servlets', 'JSP', 'JDBC', 'REST APIs'],
+    automation: ['Selenium WebDriver', 'Cucumber (BDD)', 'POM', 'API Testing (Postman, RestAssured)'],
+    tools: ['Eclipse', 'VS Code', 'Git', 'GitHub', 'Maven', 'MySQL Workbench', 'Jenkins (basic)'],
+    databases: ['MySQL', 'MongoDB'],
+    concepts: ['OOP', 'MVC Architecture', 'Agile', 'SDLC']
+  };
 
   const projects = [
     {
       title: "E-Commerce Test Automation Suite",
-      description: "Comprehensive automation suite for e-commerce testing with Cucumber-TestNG framework",
-      tech: ["Selenium", "Java", "Cucumber", "TestNG"],
-      type: "Automation Testing"
+      description: "Automated user journeys like login, search, add to cart, and checkout. Built Cucumber-TestNG framework with POM and Extent Reports.",
+      tech: ["Selenium", "Java", "Cucumber", "TestNG", "POM"],
+      type: "Automation Testing",
+      github: true
     },
     {
-      title: "API Testing Framework",
-      description: "Robust API testing framework for user management with RestAssured",
+      title: "API Testing Framework (User Management API)",
+      description: "Developed automated API tests using Java + RestAssured. Validated status codes, JSON schema, and response time.",
       tech: ["Java", "RestAssured", "JSON", "API Testing"],
-      type: "API Testing"
+      type: "API Testing",
+      github: true
     },
     {
-      title: "Wholesale Database Management",
-      description: "Full-stack web application for wholesale transaction management",
-      tech: ["Java", "J2EE", "MySQL", "Bootstrap"],
+      title: "Wholesale Database Management System",
+      description: "Created using Java (J2EE, Servlets), HTML/CSS, Bootstrap, and MySQL. Supports wholesale transactions and buyer-customer interactions.",
+      tech: ["Java", "J2EE", "Servlets", "MySQL", "Bootstrap"],
       type: "Full Stack"
     },
     {
-      title: "Multiple Disease Detection",
-      description: "Health prediction web app with symptom-based disease detection",
-      tech: ["Java", "Machine Learning", "Web Development"],
+      title: "Multiple Disease Detection (Final Year Major Project)",
+      description: "Built a health prediction web app based on user symptoms. Integrated user authentication and report generation features.",
+      tech: ["Java", "Machine Learning", "Web Development", "Authentication"],
       type: "Web Application"
     }
   ];
@@ -78,21 +89,63 @@ const Index = () => {
       company: "Angodigital Technologies Pvt. Ltd",
       role: "Automation Test Engineer",
       period: "Dec 2024 – Present",
-      description: "Designing test automation suites with Selenium WebDriver and Cucumber BDD"
+      description: "Designed and implemented test automation suites using Selenium WebDriver and Cucumber (BDD). Built modular Page Object Model (POM) frameworks with data-driven testing. Identified and reported UI/UX and functional defects, and worked closely with developers to fix them. Contributed to Sprint planning and test case design in Agile ceremonies.",
+      current: true
     },
     {
       company: "Global Quest Technologies",
       role: "Java Full Stack Intern",
       period: "Jun 2024 – Dec 2024",
-      description: "Built RESTful APIs with Spring Boot and integrated MySQL databases"
+      description: "Built RESTful APIs with Spring Boot for internal and client-facing applications. Integrated MySQL databases for user management and business logic. Collaborated in Agile sprints to design and test full-stack features."
     },
     {
       company: "Aqmenz Automation Pvt. Ltd",
       role: "Full Stack Web Development Intern",
       period: "Jul 2023 – Sep 2023",
-      description: "Developed responsive websites using HTML, CSS, JavaScript and Java backend"
+      description: "Developed responsive websites using HTML, CSS, and JavaScript. Designed backend logic with Java and connected to MySQL using JDBC."
+    },
+    {
+      company: "Nano Robotics & Embedded Technologies",
+      role: "Intern",
+      period: "Aug 2023 – Sep 2023",
+      description: "Gained foundational knowledge of embedded systems and software-hardware communication."
     }
   ];
+
+  const education = [
+    {
+      degree: "Bachelor of Technology – Computer Science Engineering",
+      institution: "Sambhram Institute of Technology, VTU",
+      period: "2020–2024",
+      grade: "CGPA: 7.15"
+    },
+    {
+      degree: "PUC – Science Stream",
+      institution: "Hiremallur Ishwaran PU College, Dharwad",
+      period: "2020",
+      grade: "Percentage: 62.66%"
+    },
+    {
+      degree: "SSLC",
+      institution: "Government High School",
+      period: "2018",
+      grade: "Percentage: 73.66%"
+    }
+  ];
+
+  const certifications = [
+    "Selenium WebDriver with Java (Udemy)",
+    "Postman API Testing",
+    "Java Full Stack (Global Quest Technologies)"
+  ];
+
+  const achievements = [
+    "1st Place – Inter-college Cricket League",
+    "2nd Place – Inter-college Quiz Competition"
+  ];
+
+  const languages = ['English', 'Hindi', 'Kannada', 'Telugu'];
+  const hobbies = ['Cooking', 'Listening to Music'];
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -135,7 +188,7 @@ const Index = () => {
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8">
-            {['home', 'about', 'skills', 'projects', 'experience', 'contact'].map((section) => (
+            {['home', 'about', 'skills', 'projects', 'experience', 'education', 'contact'].map((section) => (
               <button
                 key={section}
                 onClick={() => scrollToSection(section)}
@@ -180,7 +233,7 @@ const Index = () => {
             exit={{ opacity: 0, height: 0 }}
           >
             <div className="px-4 py-4 space-y-2">
-              {['home', 'about', 'skills', 'projects', 'experience', 'contact'].map((section) => (
+              {['home', 'about', 'skills', 'projects', 'experience', 'education', 'contact'].map((section) => (
                 <button
                   key={section}
                   onClick={() => scrollToSection(section)}
@@ -321,7 +374,7 @@ const Index = () => {
             <Card className="backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 border-0 shadow-xl hover:shadow-2xl transition-all duration-500">
               <CardContent className="p-8">
                 <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-                  Versatile and results-driven professional with proven experience as an <strong>Automation Test Engineer</strong> and foundational skills in <strong>full-stack Java development</strong>. Proficient in developing robust automation frameworks using <strong>Selenium and Cucumber</strong>, while also capable of building RESTful services and integrating full-stack web applications. Demonstrated ability to ensure software quality, identify critical bugs, and optimize performance in Agile-driven teams. Eager to contribute to dynamic development teams while continuously enhancing technical capabilities.
+                  Versatile and results-driven professional with proven experience as an <strong>Automation Test Engineer</strong> and foundational skills in <strong>full-stack Java development</strong>. Proficient in developing robust automation frameworks using <strong>Selenium and Cucumber</strong>, while also capable of building RESTful services and integrating full-stack web applications. Demonstrated ability to ensure software quality, identify critical bugs, and optimize performance in <strong>Agile-driven teams</strong>. Eager to contribute to dynamic development teams while continuously enhancing technical capabilities.
                 </p>
               </CardContent>
             </Card>
@@ -352,84 +405,40 @@ const Index = () => {
             viewport={{ once: true }}
             className="max-w-6xl mx-auto"
           >
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <Card className="backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-blue-600">
-                    <Code className="h-6 w-6" />
-                    Programming
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {['Java', 'JavaScript', 'SQL', 'HTML5', 'CSS3'].map((skill, index) => (
-                      <motion.div
-                        key={skill}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: index * 0.1, duration: 0.3 }}
-                        viewport={{ once: true }}
-                      >
-                        <Badge variant="secondary" className="hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors">
-                          {skill}
-                        </Badge>
-                      </motion.div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-purple-600">
-                    <Globe className="h-6 w-6" />
-                    Frameworks
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {['Spring Boot', 'Selenium', 'Cucumber', 'React', 'Bootstrap'].map((skill, index) => (
-                      <motion.div
-                        key={skill}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: index * 0.1, duration: 0.3 }}
-                        viewport={{ once: true }}
-                      >
-                        <Badge variant="secondary" className="hover:bg-purple-100 dark:hover:bg-purple-900 transition-colors">
-                          {skill}
-                        </Badge>
-                      </motion.div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-teal-600">
-                    <Database className="h-6 w-6" />
-                    Tools & Databases
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {['MySQL', 'Git', 'Maven', 'Postman', 'Eclipse'].map((skill, index) => (
-                      <motion.div
-                        key={skill}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: index * 0.1, duration: 0.3 }}
-                        viewport={{ once: true }}
-                      >
-                        <Badge variant="secondary" className="hover:bg-teal-100 dark:hover:bg-teal-900 transition-colors">
-                          {skill}
-                        </Badge>
-                      </motion.div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {Object.entries(technicalSkills).map(([category, skills], index) => (
+                <Card key={category} className="backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-blue-600 capitalize">
+                      {category === 'languages' && <Code className="h-5 w-5" />}
+                      {category === 'frontend' && <Globe className="h-5 w-5" />}
+                      {category === 'backend' && <Database className="h-5 w-5" />}
+                      {category === 'automation' && <Award className="h-5 w-5" />}
+                      {category === 'tools' && <Code className="h-5 w-5" />}
+                      {category === 'databases' && <Database className="h-5 w-5" />}
+                      {category === 'concepts' && <Globe className="h-5 w-5" />}
+                      {category}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex flex-wrap gap-2">
+                      {skills.map((skill, skillIndex) => (
+                        <motion.div
+                          key={skill}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: skillIndex * 0.1, duration: 0.3 }}
+                          viewport={{ once: true }}
+                        >
+                          <Badge variant="secondary" className="hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors text-xs">
+                            {skill}
+                          </Badge>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </motion.div>
         </div>
@@ -467,9 +476,17 @@ const Index = () => {
                         <CardTitle className="text-xl mb-2 group-hover:text-blue-600 transition-colors">
                           {project.title}
                         </CardTitle>
-                        <Badge variant="outline" className="text-xs">
-                          {project.type}
-                        </Badge>
+                        <div className="flex gap-2 mb-2">
+                          <Badge variant="outline" className="text-xs">
+                            {project.type}
+                          </Badge>
+                          {project.github && (
+                            <Badge variant="outline" className="text-xs text-blue-600">
+                              <Github className="h-3 w-3 mr-1" />
+                              GitHub
+                            </Badge>
+                          )}
+                        </div>
                       </div>
                       <ExternalLink className="h-5 w-5 text-gray-400 group-hover:text-blue-600 transition-colors" />
                     </div>
@@ -530,20 +547,170 @@ const Index = () => {
                           {exp.company}
                         </CardDescription>
                       </div>
-                      <Badge variant="outline" className="flex items-center gap-1 w-fit">
-                        <Calendar className="h-3 w-3" />
-                        {exp.period}
-                      </Badge>
+                      <div className="flex gap-2">
+                        <Badge variant="outline" className="flex items-center gap-1 w-fit">
+                          <Calendar className="h-3 w-3" />
+                          {exp.period}
+                        </Badge>
+                        {exp.current && (
+                          <Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                            Current
+                          </Badge>
+                        )}
+                      </div>
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-gray-600 dark:text-gray-400">
+                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                       {exp.description}
                     </p>
                   </CardContent>
                 </Card>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Education Section */}
+      <section id="education" className="py-20 bg-white/50 dark:bg-gray-800/50">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Education & Achievements
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-8"></div>
+          </motion.div>
+
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Education */}
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+              >
+                <Card className="backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 border-0 shadow-xl hover:shadow-2xl transition-all duration-500">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-blue-600">
+                      <GraduationCap className="h-6 w-6" />
+                      Education
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-6">
+                      {education.map((edu, index) => (
+                        <div key={index} className="border-l-2 border-blue-200 dark:border-blue-800 pl-4">
+                          <h3 className="font-semibold text-gray-800 dark:text-gray-200">{edu.degree}</h3>
+                          <p className="text-gray-600 dark:text-gray-400">{edu.institution}</p>
+                          <div className="flex justify-between items-center mt-2">
+                            <span className="text-sm text-gray-500">{edu.period}</span>
+                            <Badge variant="outline">{edu.grade}</Badge>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+
+              {/* Certifications & Achievements */}
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className="space-y-6"
+              >
+                {/* Certifications */}
+                <Card className="backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 border-0 shadow-xl hover:shadow-2xl transition-all duration-500">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-purple-600">
+                      <Award className="h-6 w-6" />
+                      Certifications
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {certifications.map((cert, index) => (
+                        <div key={index} className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-purple-600 rounded-full"></div>
+                          <span className="text-gray-700 dark:text-gray-300">{cert}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Achievements */}
+                <Card className="backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 border-0 shadow-xl hover:shadow-2xl transition-all duration-500">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-yellow-600">
+                      <Trophy className="h-6 w-6" />
+                      Achievements
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {achievements.map((achievement, index) => (
+                        <div key={index} className="flex items-center gap-2">
+                          <Trophy className="w-4 h-4 text-yellow-600" />
+                          <span className="text-gray-700 dark:text-gray-300">{achievement}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Languages & Hobbies */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <Card className="backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 border-0 shadow-xl hover:shadow-2xl transition-all duration-500">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-teal-600 text-lg">
+                        <Languages className="h-5 w-5" />
+                        Languages
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex flex-wrap gap-2">
+                        {languages.map((lang) => (
+                          <Badge key={lang} variant="secondary" className="text-xs">
+                            {lang}
+                          </Badge>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 border-0 shadow-xl hover:shadow-2xl transition-all duration-500">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-pink-600 text-lg">
+                        <Music className="h-5 w-5" />
+                        Hobbies
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-2">
+                        {hobbies.map((hobby, index) => (
+                          <div key={index} className="flex items-center gap-2">
+                            {hobby === 'Cooking' && <ChefHat className="w-4 h-4 text-pink-600" />}
+                            {hobby === 'Listening to Music' && <Music className="w-4 h-4 text-pink-600" />}
+                            <span className="text-gray-700 dark:text-gray-300 text-sm">{hobby}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>
